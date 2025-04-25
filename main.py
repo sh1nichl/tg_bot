@@ -15,7 +15,7 @@ ADMIN_ID = int(os.getenv("1114004611"))
 
 app = FastAPI()
 
-telegram_app = ApplicationBuilder().token(T"8015495045:AAEHRbMDYJ0lM-fOttvXVanZAac8PEP8RHo"OKEN).build()
+telegram_app = ApplicationBuilder().token("8015495045:AAEHRbMDYJ0lM-fOttvXVanZAac8PEP8RHo").build()
 
 @app.post("/webhook")
 async def webhook(request: Request):
