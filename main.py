@@ -44,4 +44,7 @@ telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_
 async def set_webhook():
     await telegram_app.bot.set_webhook("https://tg-bot.onrender.com/webhook")
 
-asyncio.run(set_webhook())
+@app.on_event("startup")
+async def startup():
+    await telegram_app.bot.set_webhook("https://tg-bot.onrender.com/webhook")
+
