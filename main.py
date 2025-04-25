@@ -10,12 +10,11 @@ from telegram.ext import (
 from fastapi import FastAPI, Request
 import asyncio
 
-TOKEN = os.getenv("8015495045:AAEHRbMDYJ0lM-fOttvXVanZAac8PEP8RHo")
-ADMIN_ID = int(os.getenv("1114004611"))
+TOKEN = os.getenv("TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
 app = FastAPI()
-
-telegram_app = ApplicationBuilder().token("8015495045:AAEHRbMDYJ0lM-fOttvXVanZAac8PEP8RHo").build()
+telegram_app = ApplicationBuilder().token(TOKEN).build()
 
 @app.post("/webhook")
 async def webhook(request: Request):
@@ -24,14 +23,14 @@ async def webhook(request: Request):
     return {"status": "ok"}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    pass  # Убираем "Привет!" при старте
+    pass  # ничего не отправляет при /start
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message
     user_msg = message.text
 
     await context.bot.send_message(
-        chat_id=1114004611,
+        chat_id=ADMIN_ID,
         text=f"🌊 у тебя новое анонимное сообщение:\n\n{user_msg}\n\n↩️ свайпни влево для ответа.",
     )
     reply = await message.reply_text("сообщение отправлено анонимно. ожидайте ответа.")
@@ -43,6 +42,6 @@ telegram_app.add_handler(CommandHandler("start", start))
 telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 async def set_webhook():
-    await telegram_app.bot.set_webhook("https://tg_bot.onrender.com/webhook")
+    await telegram_app.bot.set_webhook("https://tg-bot.onrender.com/webhook")
 
 asyncio.run(set_webhook())
