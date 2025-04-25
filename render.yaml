@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tg-bot
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python main.py"
+    envVars:
+      - key: TOKEN
+        value: 8015495045:AAEHRbMDYJ0lM-fOttvXVanZAac8PEP8RHo
+      - key: ADMIN_ID
+        value: "1114004611"
